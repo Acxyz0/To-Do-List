@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+            integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <title>To-Do List</title>
+        <link rel="stylesheet" href="./styles/style.css" />
+    </head>
+    <body class="bg-gray-200">
+        <header class="m-5">
+            <h1 class="text-3xl font-bold text-center">To-Do List - Acxyz</h1>
+            <button
+                id="btn-abrir-modal"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 transition"
+            >
+                Agregar Tarea
+            </button>
+        </header>
+
+        <!-- CARDS -->
+        <section
+            id="contenedor-cards"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 gap-5"
+        ></section>
+
+        <!-- MODAL -->
+        <div
+            id="contenedor-formulario"
+            class="fixed inset-0 z-50 grid grid-cols-1 place-items-center bg-black/50 hidden"
+            aria-hidden="true"
+        >
+            <form
+                id="formulario"
+                class="w-96 p-5 space-y-2 bg-sky-900 rounded-xl shadow-lg [&>div>label]:text-white [&>div>label]:font-bold"
+            >
+                <div class="flex items-center justify-between">
+                    <h2
+                        class="text-xl font-bold text-white text-center flex-grow"
+                    >
+                        Agregar Tarea
+                    </h2>
+                    <button
+                        id="btn-cerrar-modal"
+                        type="button"
+                        class="bg-red-600 text-white py-1 px-2 rounded-md hover:bg-red-500 transition ml-2"
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div>
+                    <label for="nombre" class="block">Nombre</label>
+                    <input
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        placeholder="Escribe el nombre de la tarea"
+                        class="border-2 w-full rounded py-1 px-2 focus:outline-none"
+                    />
+                </div>
+                <div>
+                    <label for="descripcion" class="block">Descripción</label>
+                    <textarea
+                        name="descripcion"
+                        id="descripcion"
+                        rows="3"
+                        placeholder="Escribe una descripción de la tarea"
+                        class="w-full border-2 py-1 px-2 rounded focus:outline-none"
+                    ></textarea>
+                </div>
+                <div>
+                    <label for="fechaVencimiento" class="block"
+                        >Fecha de Vencimiento</label
+                    >
+                    <input
+                        type="date"
+                        name="fechaVencimiento"
+                        id="fechaVencimiento"
+                        class="border-2 w-full rounded py-1 px-2 focus:outline-none"
+                    />
+                </div>
+                <div>
+                    <label for="prioridad" class="block">Prioridad</label>
+                    <select
+                        name="prioridad"
+                        id="prioridad"
+                        class="w-full border-2 py-1 px-2 rounded focus:outline-none"
+                    >
+                        <option value="" disabled selected
+                            >Seleccionar Prioridad</option
+                        >
+                    </select>
+                </div>
+                <button
+                    type="submit"
+                    class="w-full bg-green-500 py-2 rounded-md font-bold hover:bg-green-400 transition"
+                >
+                    Guardar tarea
+                </button>
+            </form>
+        </div>
+
+        <footer></footer>
+
+        <script type="module" src="./scripts/app.js"></script>
+    </body>
+</html>

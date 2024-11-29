@@ -39,33 +39,7 @@ prioridad.addEventListener("input", obtenerDatos);
 
 class Administrador {
     constructor() {
-        this.tareas = [
-            {
-                descripcion:
-                    "Estudiar JS con el curso de Udemy, y realizar pequeños proyectos",
-                estado: "pendiente",
-                fechaVencimiento: "2024-12-06",
-                id: 1732671505147,
-                nombre: "Estudiar JS",
-                prioridad: "media",
-            },
-            {
-                descripcion: "Realizar proyecto de estudiantes",
-                estado: "pendiente",
-                fechaVencimiento: "2024-11-28",
-                id: 1732671505148,
-                nombre: "Proyecto Gestión de Estudiantes",
-                prioridad: "maxima",
-            },
-            {
-                descripcion: "Realizar proyecto de estudiantes",
-                estado: "pendiente",
-                fechaVencimiento: "2024-11-26",
-                id: 1732671505149,
-                nombre: "Proyecto Gestión de Estudiantes",
-                prioridad: "maxima",
-            },
-        ];
+        this.tareas = [];
         this.mostrar();
     }
 
@@ -90,6 +64,14 @@ class Administrador {
         while (contenedorCards.firstChild) {
             contenedorCards.removeChild(contenedorCards.firstChild);
         }
+
+        if (this.tareas.length === 0) {
+            contenedorCards.classList.remove("grid");
+            contenedorCards.innerHTML = `<p class="mt-5 text-lg font-semibold text-center">No se han agregado tareas</p>`;
+            return;
+        }
+
+        contenedorCards.classList.add("grid");
 
         this.tareas.forEach((tarea) => {
             const cards = document.createElement("div");

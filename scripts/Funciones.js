@@ -1,7 +1,61 @@
 import { contenedorFormulario } from "./Selectores.js";
 import { prioridadSelect } from "./Selectores.js";
 import { editando, prioridades, tareasObj } from "./Variables.js";
-import { Notificaciones } from "./app.js";
+import { Notificaciones } from "./Classes/Notificaciones.js";
+import { Administrador } from "./Classes/Administrador.js";
+
+const admin = new Administrador();
+
+// GUARDAR TAREA
+function guardarTarea(e) {
+    e.preventDefault();
+
+    if (Object.values(tareasObj).some((valor) => valor === "")) {
+        new Notificaciones({
+            mensaje: "Todos los campos son obligatorios",
+            tipo: "error",
+        });
+
+        for (const key in tareasObj) {
+            if (!tareasObj[key]) {
+                const input = formulario[key];
+                input.classList.add("border-red-500");
+
+                setTimeout(() => {
+                    input.classList.remove("border-red-500");
+                }, 3000);
+            }
+        }
+        return;
+    }
+
+    if (!validarFecha(tareasObj.fechaVencimiento)) {
+        return;
+    }
+
+    if (editando.value) {
+        admin.editar({ ...tareasObj });
+        Modal("cerrar");
+        new Notificaciones({
+            mensaje: "Tarea editada con Exito",
+            tipo: "exito",
+        });
+
+        const btnSubmit = document.querySelector("button[type='submit'");
+        btnSubmit.textContent = "Guardar tarea";
+    } else {
+        admin.agregar({ ...tareasObj });
+        Modal("cerrar");
+        new Notificaciones({
+            mensaje: "Tarea guardada con Exito",
+            tipo: "exito",
+        });
+    }
+
+    formulario.reset();
+    reiniciarObj();
+    editando.value = false;
+}
 
 // LLENAR SELECT DE PRIORIDAD
 function llenarPrioridad() {
@@ -28,14 +82,17 @@ function Modal(opcion) {
     contenedorFormulario.setAttribute("aria-hidden", "true");
 }
 
+// OBTENER LOD DATOS DE CADA INPUT
 function obtenerDatos(e) {
     tareasObj[e.target.name] = e.target.value.trim();
 }
 
+// GENERAR ID UNICO PARA CADA TAREA
 function generarId() {
     return Date.now();
 }
 
+// REINICIAR OBJETO
 function reiniciarObj() {
     Object.assign(tareasObj, {
         id: generarId(),
@@ -47,6 +104,7 @@ function reiniciarObj() {
     });
 }
 
+// VALIDAR FECHA AL MOMENTO DE GUARDAR
 function validarFecha(fecha) {
     const fechaActual = new Date();
     fechaActual.setHours(0, 0, 0, 0);
@@ -64,6 +122,7 @@ function validarFecha(fecha) {
     return true;
 }
 
+// VALIDAR QUE LA FECHA SEA MAYOR QUE LA ACTUAL
 function fechaVencimientoMinima(fecha) {
     const fechaActual = new Date();
     fechaActual.setHours(0, 0, 0, 0);
@@ -82,7 +141,24 @@ function fechaVencimientoMinima(fecha) {
     }
 }
 
+// CARGAR EDICION
+function cargarEdicion(clone) {
+    Object.assign(tareasObj, clone);
+
+    nombre.value = clone.nombre;
+    descripcion.value = clone.descripcion;
+    fechaVencimiento.value = clone.fechaVencimiento;
+    prioridad.value = clone.prioridad;
+    editando.value = true;
+
+    const btnSubmit = document.querySelector("button[type='submit'");
+    btnSubmit.textContent = "Actualizar tarea";
+
+    Modal("abrir");
+}
+
 export {
+    guardarTarea,
     llenarPrioridad,
     Modal,
     obtenerDatos,
@@ -90,4 +166,5 @@ export {
     reiniciarObj,
     validarFecha,
     fechaVencimientoMinima,
+    cargarEdicion,
 };

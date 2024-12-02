@@ -5,14 +5,14 @@ import { Notificaciones } from "./Notificaciones.js";
 export class Administrador {
     constructor() {
         this.tareas = [
-            {
-                id: 1,
-                nombre: "Tarea 1",
-                descripcion: "Tarea de Prueba",
-                fechaVencimiento: "2024-12-15",
-                prioridad: "media",
-                estado: "pendiente",
-            },
+            // {
+            //     id: 1,
+            //     nombre: "Tarea 1",
+            //     descripcion: "Tarea de Prueba",
+            //     fechaVencimiento: "2024-12-15",
+            //     prioridad: "media",
+            //     estado: "pendiente",
+            // },
         ];
         this.mostrar();
     }

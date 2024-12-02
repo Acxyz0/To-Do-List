@@ -1,9 +1,19 @@
 import { contenedorCards } from "../Selectores.js";
 import { fechaVencimientoMinima, cargarEdicion } from "../Funciones.js";
+import { Notificaciones } from "./Notificaciones.js";
 
 export class Administrador {
     constructor() {
-        this.tareas = [];
+        this.tareas = [
+            {
+                id: 1,
+                nombre: "Tarea 1",
+                descripcion: "Tarea de Prueba",
+                fechaVencimiento: "2024-12-15",
+                prioridad: "media",
+                estado: "pendiente",
+            },
+        ];
         this.mostrar();
     }
 
@@ -21,7 +31,15 @@ export class Administrador {
 
     eliminar(id) {
         this.tareas = this.tareas.filter((tarea) => tarea.id !== id);
+        new Notificaciones({
+            mensaje: "Tarea eliminada correctamente",
+            tipo: "exito",
+        });
         this.mostrar();
+    }
+
+    completado(id) {
+        this.tareas;
     }
 
     mostrar() {
@@ -98,6 +116,26 @@ export class Administrador {
             // Estado
             const estado = document.createElement("p");
             estado.innerHTML = `<span class="font-bold uppercase text-black">Estado: </span> ${tarea.estado}`;
+            // AGREGAR CHECKBOX
+            const checkEstado = document.createElement("input");
+            checkEstado.type = "checkbox";
+            checkEstado.checked = tarea.estado === "completado";
+            checkEstado.dataset.id = tarea.id;
+            checkEstado.addEventListener("change", (e) => {
+                if (e.target.checked) {
+                    tarea.estado = "completado";
+                    new Notificaciones({
+                        mensaje: "Tarea Completada",
+                        tipo: "success",
+                    });
+                    this.mostrar();
+                    e.target.disabled = true;
+                } else {
+                    tarea.estado = "pendiente";
+                    this.mostrar();
+                }
+            });
+            estado.appendChild(checkEstado);
 
             // Boton Editar
             const btnEditar = document.createElement("button");

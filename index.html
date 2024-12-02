@@ -18,12 +18,39 @@
     <body class="bg-gray-200">
         <header class="m-5">
             <h1 class="text-3xl font-bold text-center">To-Do List - Acxyz</h1>
-            <button
-                id="btn-abrir-modal"
-                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 transition"
+
+            <div
+                class="grid grid-cols-1 sm:grid-cols-3 gap-x-5 gap-y-2 mt-5 justify-center lg:mx-52"
             >
-                Agregar Tarea
-            </button>
+                <button
+                    id="btn-abrir-modal"
+                    class="bg-blue-500 text-white px-4 py-2 w-full rounded hover:bg-blue-400 transition"
+                >
+                    Agregar Tarea
+                </button>
+                <select
+                    name="ver"
+                    id="ver"
+                    class="w-full border-2 py-1 px-2 rounded focus:outline-none"
+                >
+                    <option value="" disabled selected>Ver Todos</option>
+                    <option value="pendientes">Pendientes</option>
+                    <option value="iniciadas">Iniciadas</option>
+                    <option value="completas">Completas</option>
+                </select>
+                <select
+                    name="ver"
+                    id="ver"
+                    class="w-full border-2 py-1 px-2 rounded focus:outline-none"
+                >
+                    <option value="" disabled selected
+                        >Ver por Prioridad</option
+                    >
+                    <option value="">Minima</option>
+                    <option value="">Media</option>
+                    <option value="">Alta</option>
+                </select>
+            </div>
         </header>
 
         <!-- CARDS -->
